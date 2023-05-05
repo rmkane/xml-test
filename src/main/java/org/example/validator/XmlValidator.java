@@ -11,23 +11,23 @@ import javax.xml.validation.Validator;
 import org.xml.sax.SAXException;
 
 public class XmlValidator {
-  private Validator initValidator(String xsdPath) throws SAXException {
+  private Validator initValidator(File xsdFile) throws SAXException {
     SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-    Source schemaFile = new StreamSource(getFile(xsdPath));
+    Source schemaFile = new StreamSource(xsdFile);
     Schema schema = factory.newSchema(schemaFile);
     return schema.newValidator();
   }
 
-  private File getFile(String location) {
-    return new File(getClass().getClassLoader().getResource(location).getFile());
-  }
-
-  public boolean isValid(String xsdPath, String xmlPath) throws IOException, SAXException {
+  public boolean isValid(File xsdFile, File xmlFile) throws IOException {
     try {
-      initValidator(xsdPath).validate(new StreamSource(getFile(xmlPath)));
+      initValidator(xsdFile).validate(new StreamSource(xmlFile));
     } catch (SAXException e) {
       return false;
     }
     return true;
+  }
+
+  public static void main(String[] args) throws IOException {
+    System.out.println(new XmlValidator().isValid(new File(args[0]), new File(args[1])));
   }
 }
