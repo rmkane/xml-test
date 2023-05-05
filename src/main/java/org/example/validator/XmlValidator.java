@@ -23,12 +23,11 @@ public class XmlValidator {
   }
 
   public boolean isValid(String xsdPath, String xmlPath) throws IOException, SAXException {
-    Validator validator = initValidator(xsdPath);
     try {
-      validator.validate(new StreamSource(getFile(xmlPath)));
-      return true;
+      initValidator(xsdPath).validate(new StreamSource(getFile(xmlPath)));
     } catch (SAXException e) {
       return false;
     }
+    return true;
   }
 }

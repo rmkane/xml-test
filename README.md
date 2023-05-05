@@ -1,6 +1,18 @@
 # XML Validator
 
-An XSD validator
+An XSD validator written in Java.
+
+## Build
+
+```shell
+mvn clean install
+```
+
+## Format
+
+```shell
+mvn com.coveo:fmt-maven-plugin:format
+```
 
 ## References
 
